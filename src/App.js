@@ -1,19 +1,29 @@
-import React from 'react';
+import React,  { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Login from './Pages/Auth/Login';
 import Navbar from './Components/Navbar';
+import Alert from './Components/Alert';
+
 
 function App() {
+
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
+
+  const showAlert = (message, type) => {
+    setAlertMessage(message);
+    setAlertType(type);
+  };
+
+  const closeAlert = () => {
+    setAlertMessage('');
+    setAlertType('');
+  };
   return (
     <div className="App">
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-        </ul>
-      </nav>
+     
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

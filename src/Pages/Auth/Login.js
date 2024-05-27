@@ -4,9 +4,22 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (email === '') {
+        setEmailError('Enter email');
+    }
+
+    
+    if (password === '') {
+      setPasswordError('Enter password');
+      return '';
+
+  }
     // For demonstration, we're using a simple validation.
     // In a real-world app, you would handle authentication here.
     if (email === 'test@example.com' && password === 'password') {
@@ -14,6 +27,7 @@ function Login() {
     } else {
       setError('Invalid email or password');
     }
+
   };
 
   return (
@@ -23,7 +37,10 @@ function Login() {
         {error && <div className="p-2 text-sm text-center text-red-600 bg-red-100 border border-red-400 rounded">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1">
+
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+            {emailError && <div className=" text-sm  text-red-600   ">{emailError}</div>}
+
             <input
               type="email"
               id="email"
@@ -35,6 +52,7 @@ function Login() {
           </div>
           <div className="space-y-1">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            {passwordError && <div className="  text-sm   text-red-600   ">{passwordError}</div>}
             <input
               type="password"
               id="password"
