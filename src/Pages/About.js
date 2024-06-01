@@ -5,7 +5,8 @@ import ZoneBaSelector from '../Components/ZoneBaSelector ';
 import { type } from '../Components/Options';
 import Dropdown from '../Components/DropDown';
 import ImageUpload from '../Components/ImageUpload';
-
+import Checkbox from '../Components/Checkbox';
+ 
 
 
 
@@ -21,6 +22,8 @@ const Form = () => {
     visitDate: '',
     patrolTime: '',
     substationImage1: null,
+    gateUnlocked: false,
+    rust: false,
   });
 
   const [errors, setErrors] =useState({});
@@ -79,7 +82,9 @@ const Form = () => {
       <Input name="fl" label="FL Substation" value={formData.fl} onChange={handleChange} />
       <Input name="fl" label="FL Substation" value={formData.fl} onChange={handleChange} />
       <Input name="fl" label="FL Substation" value={formData.fl} onChange={handleChange} />
-
+      <Checkbox name="gateUnlocked" label="Gate Unlocked" checked={formData.gateUnlocked} onChange={handleChange} error={errors.gateUnlocked} checkboxLabel="Tidak Berkunci" />
+      <Checkbox name="rust" label="" checked={formData.rust} onChange={handleChange} error={errors.rust}  checkboxLabel="Rosak"/>
+     
 
       <Input name="roadname" label="Road Name" value={formData.roadname} onChange={handleChange} />
       

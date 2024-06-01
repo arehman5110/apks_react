@@ -1,9 +1,20 @@
 // ImageUpload.js
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 
 const ImageUpload = ({ name, label, value, onChange, error }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const handleDelete = () => {
     onChange(name, null);
+  };
+
+  const handleImageClick = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -20,20 +31,22 @@ const ImageUpload = ({ name, label, value, onChange, error }) => {
             accept="image/*"
             onChange={(e) => onChange(name, e.target.files[0])}
           />
+          {value ?  
+              <img
+                src={URL.createObjectURL(value)}
+                alt="Selected"
+                className="h-8 w-8 rounded-full cursor-pointer"
+                onClick={handleImageClick}
+              />  
+           : ' '}
+
           <label
             htmlFor={name}
-            className={`cursor-pointer flex items-center ${
-              value ? 'bg-gray-200 px-2 py-1 rounded-lg' : 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-            }`}
+            className={`cursor-pointer flex items-center 
+                bg-blue-500 hover:bg-blue-700 text-white font-bold  py-1 px-4 rounded focus:outline-none focus:shadow-outline`}
           >
-            {value ? (
-              <>
-                <img src={URL.createObjectURL(value)} alt="Selected" className="h-8 w-8 rounded-full" />
-                <span className="ml-2">Change</span>
-              </>
-            ) : (
-              'Upload Image'
-            )}
+        
+            Upload Image
           </label>
           {value && (
             <button
@@ -44,9 +57,19 @@ const ImageUpload = ({ name, label, value, onChange, error }) => {
               Delete
             </button>
           )}
+
+
+          
         </div>
       </div>
       {error && <p className="text-red-500 text-xs italic">{error}</p>}
+      
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Image Modal">
+        <button onClick={closeModal} className="float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+          Close
+        </button>
+        {value && <img src={URL.createObjectURL(value)} alt="Selected" className="block mx-auto mt-4" />}
+      </Modal>
     </div>
   );
 };
